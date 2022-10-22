@@ -37,6 +37,9 @@
   }
 }
 
-.blank {
-  color: red;
+/* Dark Mode */
+body {
+  background-color: rgb(28, 31, 34);
+  color: rgb(255, 255, 255, 1);
 }
+

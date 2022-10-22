@@ -1,9 +1,8 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 
 export default function Navbar(props) {
     return (
-        <nav className="navbar navbar-expand-lg bg-light">
+        <nav className={`navbar navbar-expand-lg navbar-${props.theme} bg-${props.theme}`}>
             <div className="container-fluid">
                 <a className="navbar-brand" href="/">{props.title}</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,10 +17,14 @@ export default function Navbar(props) {
                             <a className="nav-link" href="/">About</a>
                         </li>
                     </ul>
-                    <form className="d-flex" role="search">
+                    {/* <form className="d-flex" role="search">
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                         <button className="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    </form> */}
+                    <div class={`form-check form-switch text-${props.theme==='light'?'dark':'light'}`}>
+                        <input class="form-check-input" onClick={props.toggleTheme} type="checkbox" role="switch" id="flexSwitchCheckChecked" defaultChecked={true}/>
+                        <label class="form-check-label" for="flexSwitchCheckChecked">{props.themeText}</label>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -29,11 +32,13 @@ export default function Navbar(props) {
 }
 
 Navbar.propTypes = {
+    theme: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     home: PropTypes.string
 }
 
 Navbar.defaultProps = {
+    theme: "dark",
     title: "Set title here",
     home: "Home"
 }
