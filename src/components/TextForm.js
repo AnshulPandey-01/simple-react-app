@@ -23,7 +23,7 @@ export default function TextForm(props) {
     const handleSentenceCase = () => {
         console.log("Sentence case was clicked:", text);
         let words = text.toLowerCase().split(".");
-        console.log(words);
+        // console.log(words);
         words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
         for (let i = 1; i < words.length - 1; i++) {
             words[i] = ". " + words[i].charAt(1).toUpperCase() + words[i].slice(2);
@@ -43,6 +43,7 @@ export default function TextForm(props) {
         let textArea = document.getElementById("myBox");
         textArea.select();
         navigator.clipboard.writeText(textArea.value);
+        props.alert("Copied to clipboard!", "success");
         console.log("Text copied!");
     }
 
@@ -50,6 +51,12 @@ export default function TextForm(props) {
         console.log("Clear text was clicked:", text);
         setText("");
         console.log("Cleared text!");
+    }
+
+    const getNoOfWords = () => {
+        let words = text.split(" ");
+        let noOfWords = words.filter((w) => w.length !== 0);
+        return noOfWords.length;
     }
 
     const [text, setText] = useState("Enter text here");
@@ -71,8 +78,8 @@ export default function TextForm(props) {
             </div>
             <div className="container my-2">
                 <h2>Your text summary</h2>
-                <p>Words: {text.split(" ").length} | Length: {text.length}</p>
-                <p>Read time: {0.008 * text.split(" ").length} minutes</p>
+                <p>Words: {getNoOfWords()} | Length: {text.length}</p>
+                <p>Read time: {0.008 * getNoOfWords()} minutes</p>
             </div>
             <div className="container my-2">
                 <h2>Preview</h2>

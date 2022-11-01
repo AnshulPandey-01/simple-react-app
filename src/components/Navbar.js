@@ -21,9 +21,9 @@ export default function Navbar(props) {
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                         <button className="btn btn-outline-success" type="submit">Search</button>
                     </form> */}
-                    <div class={`form-check form-switch text-${props.theme==='light'?'dark':'light'}`}>
-                        <input class="form-check-input" onClick={props.toggleTheme} type="checkbox" role="switch" id="flexSwitchCheckChecked" defaultChecked={true}/>
-                        <label class="form-check-label" for="flexSwitchCheckChecked">{props.themeText}</label>
+                    <div className={`form-check form-switch text-${props.theme==='light'?'dark':'light'}`}>
+                        <input className="form-check-input" onClick={props.toggleTheme} type="checkbox" role="switch" id="flexSwitchCheckChecked" defaultChecked={true}/>
+                        <label className="form-check-label" htmlFor="flexSwitchCheckChecked">{props.themeText}</label>
                     </div>
                 </div>
             </div>
