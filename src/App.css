@@ -43,3 +43,6 @@ body {
   color: rgb(255, 255, 255, 1);
 }
 
+.accordion-button::after {
+  filter: invert(0.7);
+}

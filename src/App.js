@@ -4,8 +4,14 @@ import About from './components/About';
 import Alert from './components/Alert';
 import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 
 function App() {
+
   const title = "TextUtils";
   const[theme, setTheme] = useState("dark");
   const[themeText, setThemeText] = useState("Enable Light Mode");
@@ -49,14 +55,17 @@ function App() {
   }
 
   return (
-    <>
+    <Router>
       <Navbar theme={theme} title={title} home="Home" toggleTheme={toggleTheme} themeText={themeText} />
       <Alert alert={alert} capitalize={capitalizeFirstLetter} />
       <div className="container my-2">
-        <TextForm heading="Enter the text below" alert={showAlert} />
-        {/* <About/> */}
+        <Routes>
+          <Route path="/" element={<TextForm heading="Enter the text below" alert={showAlert} />}></Route>
+          <Route path="/home" element={<TextForm heading="Enter the text below" alert={showAlert} />}></Route>
+          <Route path="/about" element={<About theme={theme} />}></Route>
+        </Routes>
       </div>
-    </>
+    </Router>
   );
 }
 

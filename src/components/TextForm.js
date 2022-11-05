@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 
 export default function TextForm(props) {
+
+    const [text, setText] = useState("");
+
     const handleOnChnage = (event) => {
-        console.log("On change");
         setText(event.target.value);
     }
 
@@ -23,13 +25,12 @@ export default function TextForm(props) {
     const handleSentenceCase = () => {
         console.log("Sentence case was clicked:", text);
         let words = text.toLowerCase().split(".");
-        // console.log(words);
         words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
         for (let i = 1; i < words.length - 1; i++) {
             words[i] = ". " + words[i].charAt(1).toUpperCase() + words[i].slice(2);
         }
         setText(words.join("") + ".");
-        console.log("Converted sentence case!");
+        console.log("Converted to sentence case!");
     }
 
     const handleExtraSpaces = () => {
@@ -40,9 +41,7 @@ export default function TextForm(props) {
 
     const handleCopyText = () => {
         console.log("Copy text was clicked:", text);
-        let textArea = document.getElementById("myBox");
-        textArea.select();
-        navigator.clipboard.writeText(textArea.value);
+        navigator.clipboard.writeText(text);
         props.alert("Copied to clipboard!", "success");
         console.log("Text copied!");
     }
@@ -54,12 +53,11 @@ export default function TextForm(props) {
     }
 
     const getNoOfWords = () => {
-        let words = text.split(" ");
+        let words = text.split(/\s+/);
         let noOfWords = words.filter((w) => w.length !== 0);
         return noOfWords.length;
     }
 
-    const [text, setText] = useState("Enter text here");
     return (
         <>
             <div className="container">
@@ -67,13 +65,13 @@ export default function TextForm(props) {
                 <div className="mb-2">
                     <textarea className="form-control" value={text} onChange={handleOnChnage} id="myBox" rows="8"></textarea>
                 </div>
-                <button className="btn btn-primary" onClick={handleUpClick}>Upper case</button>
-                <button className="btn btn-primary mx-3" onClick={handleLowClick}>Lower case</button>
-                <button className="btn btn-primary" onClick={handleSentenceCase}>Sentence case</button>
-                <button className="btn btn-primary mx-3" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+                <button disabled={text.length===0} className="btn btn-primary my-1" onClick={handleUpClick}>Upper case</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-3 my-1" onClick={handleLowClick}>Lower case</button>
+                <button disabled={text.length===0} className="btn btn-primary my-1" onClick={handleSentenceCase}>Sentence case</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-3 my-1" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
                 <div style={{float: 'right'}}>
-                    <button className="btn btn-primary mx-3" onClick={handleCopyText}>Copy</button>
-                    <button className="btn btn-outline-primary" onClick={handleClearText}>Clear</button>
+                    <button disabled={text.length===0} className="btn btn-primary mx-3 my-1" onClick={handleCopyText}>Copy</button>
+                    <button disabled={text.length===0} className="btn btn-outline-primary my-1" onClick={handleClearText}>Clear</button>
                 </div>
             </div>
             <div className="container my-2">
@@ -83,7 +81,7 @@ export default function TextForm(props) {
             </div>
             <div className="container my-2">
                 <h2>Preview</h2>
-                <p>{text}</p>
+                <p>{text.length > 0 ? text : "Nothing to preview!"}</p>
             </div>
         </>
     )
